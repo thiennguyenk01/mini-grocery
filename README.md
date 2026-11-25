@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/01-trang-chu.png" alt="Trang chủ" width="850" />
+  <img src="docs/screenshots/01-trang-chu.png" alt="Trang chủ trên điện thoại" width="260" />
 </p>
 
 > 💡 **Offline-first:** toàn bộ dữ liệu lưu trên thiết bị. Không cần server, không cần tài khoản, không cần internet.
@@ -39,23 +39,21 @@
 
 <table>
   <tr>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/02-ban-hang.png" alt="Bán hàng" /><br />
-      <b>Bán hàng</b>: chọn sản phẩm nhanh theo danh mục
+    <td align="center" width="25%">
+      <img src="docs/screenshots/02-ban-hang.png" alt="Bán hàng" width="200" /><br />
+      <b>Bán hàng</b><br />chọn sản phẩm nhanh theo danh mục
     </td>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/03-san-pham.png" alt="Sản phẩm" /><br />
-      <b>Sản phẩm</b>: giá nhập, giá bán, tồn kho
+    <td align="center" width="25%">
+      <img src="docs/screenshots/03-san-pham.png" alt="Sản phẩm" width="200" /><br />
+      <b>Sản phẩm</b><br />giá nhập, giá bán, tồn kho
     </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/04-nhap-hang.png" alt="Nhập hàng" /><br />
-      <b>Nhập hàng</b>: lịch sử các phiếu nhập
+    <td align="center" width="25%">
+      <img src="docs/screenshots/04-nhap-hang.png" alt="Nhập hàng" width="200" /><br />
+      <b>Nhập hàng</b><br />lịch sử các phiếu nhập
     </td>
-    <td align="center" width="50%">
-      <img src="docs/screenshots/05-cong-no.png" alt="Công nợ" /><br />
-      <b>Công nợ</b>: khách đang nợ và số đã trả
+    <td align="center" width="25%">
+      <img src="docs/screenshots/05-cong-no.png" alt="Công nợ" width="200" /><br />
+      <b>Công nợ</b><br />khách đang nợ và số đã trả
     </td>
   </tr>
 </table>
