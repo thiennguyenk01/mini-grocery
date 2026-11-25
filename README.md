@@ -109,7 +109,27 @@ Sau khi chạy `npm run dev`, bạn có thể thử theo thứ tự sau:
 7. **Đặt mã PIN.** Vào **Cài đặt → Bảo mật**, đặt mã PIN. Lần mở app sau sẽ yêu cầu nhập PIN.
 8. **Sao lưu.** Vào **Cài đặt**, xuất file JSON để lưu dữ liệu. Khi cần, dùng chức năng khôi phục để nạp lại file đó.
 
-> 📸 *Ảnh chụp màn hình sẽ được thêm vào thư mục `docs/` sau.*
+### 📸 Ảnh chụp màn hình
+
+**Trang chủ: doanh thu, cảnh báo và truy cập nhanh**
+
+![Trang chủ](docs/screenshots/01-trang-chu.png)
+
+**Bán hàng: chọn sản phẩm theo danh mục, quét mã vạch và thanh toán**
+
+![Bán hàng](docs/screenshots/02-ban-hang.png)
+
+**Sản phẩm: giá nhập, giá bán và tồn kho, có cảnh báo khi sắp hết**
+
+![Sản phẩm](docs/screenshots/03-san-pham.png)
+
+**Nhập hàng: lịch sử các phiếu nhập**
+
+![Nhập hàng](docs/screenshots/04-nhap-hang.png)
+
+**Công nợ: theo dõi khách đang nợ**
+
+![Công nợ](docs/screenshots/05-cong-no.png)
 
 ---
 
