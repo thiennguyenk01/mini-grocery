@@ -5,8 +5,8 @@
 <h1 align="center">Tạp Hóa Mini</h1>
 
 <p align="center">
-  Ứng dụng quản lý tạp hóa nhỏ: bán hàng, nhập hàng, tồn kho, công nợ và sao lưu dữ liệu.<br />
-  Chạy trên trình duyệt, đóng gói được thành app Android.
+  Ứng dụng di động quản lý tạp hóa nhỏ: bán hàng, nhập hàng, tồn kho, công nợ và sao lưu dữ liệu.<br />
+  Dành cho Android.
 </p>
 
 <p align="center">
@@ -83,16 +83,16 @@
 
 ## 🚀 Bắt đầu nhanh
 
-Nếu đã có Node.js 20 trở lên:
+Nếu đã có Node.js 20 trở lên và Android Studio:
 
 ```bash
 git clone https://github.com/thiennguyenk01/mini-grocery.git
 cd mini-grocery
 npm install
-npm run dev
+npm run android
 ```
 
-Mở `http://localhost:5173` trên trình duyệt. Dữ liệu mẫu sẽ có sẵn để bạn dùng thử.
+Lệnh cuối build app, đồng bộ sang project Android rồi mở Android Studio. Nhấn **Run ▶** để cài lên điện thoại hoặc emulator. Dữ liệu mẫu sẽ có sẵn để bạn dùng thử.
 
 ---
 
@@ -102,9 +102,12 @@ Mở `http://localhost:5173` trên trình duyệt. Dữ liệu mẫu sẽ có s�
 
 | Phần mềm | Phiên bản | Ghi chú |
 | --- | --- | --- |
-| Node.js | 20 trở lên (đã kiểm tra với 24) | Kèm npm |
+| Node.js | 20 trở lên (đã kiểm tra với 24) | Kèm npm, dùng để build web và đồng bộ |
 | Git | Bất kỳ | Để clone repo |
-| Android Studio | Mới nhất | Chỉ cần nếu muốn build APK |
+| Android Studio | Mới nhất | Bắt buộc, dùng để cài app lên thiết bị |
+| Điện thoại Android | Android 7.0 trở lên | Hoặc dùng emulator trong Android Studio |
+
+> ℹ️ Đây là ứng dụng di động, không có bản chạy trên trình duyệt. Mọi thao tác chạy app đều đi qua Android Studio.
 
 ### Bước 1: Clone repository
 
@@ -121,41 +124,39 @@ npm install
 
 Lệnh này cài toàn bộ dependencies trong `package.json` vào `node_modules/`.
 
-### Bước 3: Chạy chế độ phát triển
+### Bước 3: Cài Android Studio
+
+Tải và cài [Android Studio](https://developer.android.com/studio). Lần mở đầu, để trình cài đặt tải Android SDK mặc định.
+
+### Bước 4: Build và mở project Android
 
 ```bash
-npm run dev
+npm run android
 ```
 
-Mở trình duyệt tại địa chỉ hiển thị trong terminal (thường là `http://localhost:5173`).
+Lệnh này build code web (`npm run build`), đồng bộ sang thư mục `android/` bằng Capacitor, rồi mở project trong Android Studio. Lần đầu có thể mất vài phút để Gradle tải thư viện.
 
-### Bước 4: Kiểm tra bản build production (tuỳ chọn)
+### Bước 5: Chạy app trên điện thoại hoặc emulator
+
+1. **Điện thoại thật:** bật *Tuỳ chọn nhà phát triển* và *Gỡ lỗi USB*, cắm cáp vào máy tính.
+2. **Emulator:** vào *Device Manager* trong Android Studio và tạo một thiết bị ảo nếu chưa có.
+3. Chọn thiết bị ở thanh công cụ, rồi nhấn **Run ▶**.
+
+### Bước 6: Cập nhật sau khi sửa code
+
+Mỗi khi thay đổi mã nguồn trong `src/`, chạy lại:
 
 ```bash
-npm run build
-npm run preview
+npm run android:sync
 ```
 
-`npm run build` kiểm tra kiểu TypeScript rồi đóng gói ra `dist/`. `npm run preview` chạy thử bản đã đóng gói.
-
-### Bước 5: Đóng gói ra Android (tuỳ chọn)
-
-1. Cài [Android Studio](https://developer.android.com/studio).
-2. Chạy lệnh sau để build web, đồng bộ sang project Android và mở Android Studio:
-
-   ```bash
-   npm run android
-   ```
-
-3. Trong Android Studio, chọn thiết bị hoặc emulator rồi nhấn **Run ▶**.
-
-Khi chỉnh sửa code web, chạy `npm run android:sync` để đồng bộ lại vào project Android.
+Sau đó nhấn **Run ▶** trong Android Studio để cài bản mới.
 
 ---
 
 ## 🎬 Thử nghiệm luồng chính
 
-Sau khi chạy `npm run dev`, bạn có thể làm theo thứ tự sau:
+Sau khi cài app lên điện thoại hoặc emulator, bạn có thể làm theo thứ tự sau:
 
 1. **Thêm danh mục.** Vào **Danh mục**, tạo ít nhất một danh mục (ví dụ: *Đồ uống*).
 2. **Thêm sản phẩm.** Vào **Sản phẩm**, nhấn **+** rồi nhập tên, đơn vị (gói, chai, kg...), giá nhập, giá bán, danh mục, ngưỡng cảnh báo và ảnh (tuỳ chọn). Trên Android có thể quét mã vạch.
@@ -207,21 +208,20 @@ tap-hoa-mini/
 
 | Lệnh | Tác dụng |
 | --- | --- |
-| `npm run dev` | Chạy server phát triển |
-| `npm run build` | Kiểm tra TypeScript và đóng gói production |
-| `npm run preview` | Xem thử bản đã đóng gói |
+| `npm run build` | Kiểm tra TypeScript và đóng gói web (bước đầu của build Android) |
 | `npm run lint` | Kiểm tra code bằng oxlint |
 | `npm run android` | Build web, sync và mở Android Studio |
-| `npm run android:sync` | Build web và sync sang project Android |
+| `npm run android:sync` | Build web và sync sang project Android sau khi sửa code |
 
 ---
 
 ## ❓ Xử lý sự cố
 
 - **`npm install` lỗi:** xoá `node_modules/` và `package-lock.json` rồi chạy lại, hoặc kiểm tra phiên bản Node.js.
-- **Cổng 5173 đang bị chiếm:** Vite sẽ tự chọn cổng khác và hiển thị trong terminal.
-- **Dữ liệu biến mất:** dữ liệu nằm trong localStorage của trình duyệt hoặc WebView. Xoá dữ liệu trình duyệt hoặc gỡ app sẽ xoá dữ liệu. Hãy sao lưu thường xuyên.
-- **Quét mã vạch không hoạt động:** tính năng này cần chạy trên thiết bị Android thật, không hỗ trợ trong trình duyệt.
+- **Gradle tải thư viện lâu hoặc lỗi lần đầu:** đợi quá trình đồng bộ xong trong Android Studio, rồi thử *Build → Rebuild Project*.
+- **Đã sửa code nhưng app không đổi:** chạy lại `npm run android:sync` rồi nhấn **Run ▶**.
+- **Dữ liệu biến mất:** dữ liệu nằm trong bộ nhớ của app trên máy. Xoá dữ liệu app hoặc gỡ cài đặt sẽ xoá dữ liệu. Hãy sao lưu thường xuyên.
+- **Quét mã vạch không hoạt động:** tính năng này cần chạy trên thiết bị Android thật và cấp quyền camera cho app. Emulator thường không quét được.
 
 ---
 
