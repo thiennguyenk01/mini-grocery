@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Android / Capacitor generated and local files
+build/
+android/.gradle/
+android/.idea/
+android/.cxx/
+android/captures/
+android/local.properties
+android/app/release/
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Editor and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local Claude settings and generated security reports
+.claude/settings.local.json
+vbsec-reports/
+
+# TypeScript incremental build info
+*.tsbuildinfo

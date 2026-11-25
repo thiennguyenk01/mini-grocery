@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tạp Hóa Mini</title>
+<meta name="description" content="Ứng dụng quản lý tiệm tạp hóa trên điện thoại: tính tiền, theo dõi kho, ghi công nợ. Không cần tài khoản, dữ liệu nằm trong máy." />
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --leaf-deep: #0b3a1b;
+  --leaf: #147f27;
+  --leaf-soft: #dcefd9;
+  --mint: #f2f7ef;
+  --paper: #ffffff;
+  --marigold: #f5b82e;
+  --coral: #d9412f;
+  --ink: #12261a;
+  --ink-soft: #4b5f52;
+  --line: #d9e5d6;
+  --font: "Bricolage Grotesque", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mint: #0d1f14; --paper: #14291b; --leaf-soft: #1c3a26; --ink: #e8f2e8; --ink-soft: #a5bba9; --line: #284534;
+    --leaf-deep: #e8f2e8; --leaf: #3fae56;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font); background: var(--mint); color: var(--ink); font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--marigold); outline-offset: 3px; }
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+.btn { display: inline-block; font: 700 1rem/1 var(--font); text-decoration: none; padding: 16px 24px; border-radius: 14px; border: 0; cursor: pointer; background: var(--leaf); color: #fff; transition: transform .12s, background .12s; }
+.btn:hover { background: #0f6a20; }
+.btn:active { transform: translateY(2px); }
+.btn.light { background: transparent; color: var(--leaf-deep); box-shadow: inset 0 0 0 2px var(--leaf-deep); }
+.btn.light:hover { background: var(--leaf-soft); }
+.btn.small { padding: 11px 16px; font-size: .95rem; }
+.btn.gold { background: var(--marigold); color: #1c1503; }
+.btn.gold:hover { background: #e7a91c; }
+
+/* ---------- đầu trang ---------- */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--leaf-deep); }
+.brand img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.nav nav { display: flex; gap: 28px; font-weight: 600; font-size: 1rem; color: var(--ink-soft); }
+.nav nav a { text-decoration: none; }
+.nav nav a:hover { color: var(--leaf); }
+@media (max-width: 760px) { .nav nav { display: none; } }
+
+.hero { padding: 40px 0 112px; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+@media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+.hero h1 { font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.8rem); line-height: 1; letter-spacing: -.035em; color: var(--leaf-deep); font-variation-settings: "opsz" 96; max-width: 12ch; }
+.hero .lead { margin-top: 24px; font-size: 1.22rem; color: var(--ink-soft); max-width: 36ch; }
+.hero .cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.facts { margin: 48px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 44ch; }
+.facts li { padding-left: 16px; border-left: 4px solid var(--marigold); color: var(--ink-soft); }
+.facts b { color: var(--ink); }
+
+/* ---------- điện thoại demo ---------- */
+.stage { position: relative; display: grid; justify-items: center; padding: 8px 0 8px; }
+.stage::before { content: ""; position: absolute; width: min(420px, 96%); aspect-ratio: 1; border-radius: 48% 52% 46% 54% / 52% 46% 54% 48%; background: var(--marigold); top: 40px; z-index: 0; }
+.hint { position: absolute; left: 0; bottom: 14px; z-index: 3; background: var(--leaf-deep); color: #fff; font-weight: 600; font-size: .95rem; padding: 10px 14px; border-radius: 12px; max-width: 220px; line-height: 1.35; }
+@media (prefers-color-scheme: dark) { .hint { background: var(--leaf); } }
+@media (max-width: 920px) { .hint { position: static; margin-top: 16px; max-width: none; } }
+.phone { position: relative; z-index: 1; width: min(340px, 100%); height: 660px; background: #f5f7f6; color: #1f2933; border: 10px solid #0b2514; border-radius: 42px; overflow: hidden; box-shadow: 0 28px 50px rgba(11,58,27,.28); display: flex; flex-direction: column; }
+.ph-top { padding: 18px 16px 10px; background: #fff; border-bottom: 1px solid #edf0ee; }
+.ph-top h2 { font-size: 1.1rem; font-weight: 800; }
+.ph-search { margin-top: 10px; background: #f3f4f2; border-radius: 10px; padding: 10px 12px; color: #8a948d; font-size: .9rem; }
+.ph-chips { display: flex; gap: 8px; padding: 10px 16px; overflow: hidden; }
+.ph-chips span { flex-shrink: 0; padding: 6px 14px; border-radius: 999px; background: #f3f4f2; color: #475569; font-weight: 600; font-size: .85rem; }
+.ph-chips span:first-child { background: #147f27; color: #fff; }
+.grid { flex: 1; overflow-y: auto; padding: 4px 16px 90px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: start; }
+.tile { position: relative; font: inherit; background: #fff; border: 1px solid #e4e9e4; border-radius: 14px; padding: 12px 8px; text-align: center; cursor: pointer; color: inherit; }
+.tile:active { transform: scale(.97); }
+.tile.sel { border-color: #147f27; box-shadow: 0 0 0 1px #147f27; }
+.tile.max { opacity: .55; cursor: not-allowed; }
+.tile .av { width: 48px; height: 48px; border-radius: 12px; margin: 0 auto 6px; display: grid; place-items: center; font-weight: 800; font-size: 1.1rem; color: #0b3a1b; background: #dcefd9; }
+.tile b { display: block; font-size: .92rem; line-height: 1.25; }
+.tile .pr { display: block; margin-top: 2px; font-weight: 800; color: #147f27; font-size: .95rem; }
+.tile .st { display: inline-block; margin-top: 6px; font-size: .75rem; padding: 2px 8px; border-radius: 6px; background: #f1f2f1; color: #52605a; }
+.tile .st.low { background: #fde8e5; color: #b4301f; }
+.tile .qty { position: absolute; top: 6px; right: 6px; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; background: #147f27; color: #fff; font-weight: 700; font-size: .8rem; line-height: 24px; }
+.bar { position: absolute; left: 10px; right: 10px; bottom: 10px; background: #147f27; color: #fff; border: 0; border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; font: 700 .95rem var(--font); cursor: pointer; text-align: left; transform: translateY(90px); transition: transform .25s; }
+.bar.show { transform: none; }
+.sheet { position: absolute; inset: 0; background: rgba(11,37,20,.5); display: none; align-items: flex-end; }
+.sheet.open { display: flex; }
+.sheet-in { background: #fff; width: 100%; border-radius: 22px 22px 0 0; padding: 18px 16px 16px; animation: up .25s ease-out; }
+@keyframes up { from { transform: translateY(40px); opacity: .4; } to { transform: none; opacity: 1; } }
+.sheet h3 { font-size: 1rem; font-weight: 800; }
+.sheet .tot { display: flex; justify-content: space-between; margin: 8px 0 12px; font-weight: 800; font-size: 1.15rem; }
+.sheet .tot span:last-child { color: #147f27; }
+.lbl { font-size: .85rem; font-weight: 600; color: #52605a; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 600 .9rem var(--font); padding: 9px 13px; border-radius: 999px; border: 1px solid #d7ddd7; background: #fff; color: #1f2933; cursor: pointer; min-height: 40px; }
+.chip.on { background: #147f27; color: #fff; border-color: #147f27; }
+.change { margin: 14px 0; padding: 10px 12px; background: #f3f8f2; border-radius: 12px; display: flex; justify-content: space-between; font-size: .95rem; }
+.change b { color: #147f27; }
+.pay { width: 100%; height: 48px; border: 0; border-radius: 12px; background: #147f27; color: #fff; font: 700 1rem var(--font); cursor: pointer; }
+.pay:disabled { background: #b8c4ba; cursor: not-allowed; }
+.done { text-align: center; padding: 14px 0 6px; }
+.done .ok { width: 52px; height: 52px; border-radius: 50%; background: #dcefd9; color: #147f27; display: grid; place-items: center; margin: 0 auto 10px; font-size: 1.6rem; font-weight: 800; }
+.done p { color: #52605a; margin-bottom: 14px; font-size: .95rem; }
+
+/* ---------- các phần ---------- */
+section.block { padding: 0 0 112px; }
+.sec-head { max-width: 620px; }
+.sec-head h2, .invest h2, .contact-card h2 { font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.04; letter-spacing: -.03em; color: var(--leaf-deep); }
+.sec-head p { margin-top: 16px; color: var(--ink-soft); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 920px) { .split { grid-template-columns: 1fr; gap: 32px; } }
+
+/* cần xử lý */
+.todo { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 8px 20px; max-width: 440px; }
+.todo h3 { font-size: .95rem; padding: 12px 0 4px; color: var(--ink-soft); font-weight: 700; }
+.todo-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); min-height: 64px; }
+.todo-row:first-of-type { border-top: 0; }
+.todo-row i { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.todo-row div { flex: 1; }
+.todo-row b { display: block; }
+.todo-row span { font-size: .9rem; color: var(--ink-soft); }
+
+/* sổ nợ */
+.ledger { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 8px 24px; max-width: 480px; }
+.debt { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: center; padding: 16px 0; border-top: 1px solid var(--line); position: relative; }
+.debt:first-child { border-top: 0; }
+.debt h3 { font-size: 1.1rem; font-weight: 800; }
+.debt p { font-size: .9rem; color: var(--ink-soft); }
+.debt .owed { grid-row: 1 / span 2; grid-column: 2; font-weight: 800; font-size: 1.25rem; color: var(--leaf); text-align: right; }
+.debt .owed.late { color: var(--coral); }
+.debt .paybtn { grid-column: 1 / -1; justify-self: start; margin-top: 8px; font: 700 .9rem var(--font); background: var(--leaf-soft); color: var(--leaf-deep); border: 0; border-radius: 10px; padding: 10px 14px; cursor: pointer; min-height: 40px; }
+.debt .paybtn:hover { filter: brightness(.96); }
+.debt .stamp { position: absolute; right: 0; top: 12px; font-weight: 800; color: var(--leaf); border: 2px solid var(--leaf); border-radius: 8px; padding: 2px 10px; transform: rotate(-6deg); display: none; }
+.debt.done .stamp { display: block; animation: stamp .28s cubic-bezier(.3,1.6,.5,1); }
+.debt.done .owed, .debt.done .paybtn { visibility: hidden; }
+@keyframes stamp { from { transform: rotate(-6deg) scale(1.8); opacity: 0; } to { transform: rotate(-6deg) scale(1); opacity: 1; } }
+
+/* kho */
+.gauges { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.gauge { display: grid; grid-template-columns: 120px 1fr auto; gap: 14px; align-items: center; }
+@media (max-width: 480px) { .gauge { grid-template-columns: 92px 1fr auto; } }
+.gauge strong { font-weight: 600; font-size: 1rem; }
+.bar-t { height: 14px; background: var(--leaf-soft); border-radius: 7px; position: relative; }
+.bar-t i { display: block; height: 100%; border-radius: 7px; background: var(--leaf); }
+.bar-t.low i { background: var(--coral); }
+.bar-t u { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--ink); }
+.gauge em { font-style: normal; font-weight: 700; font-size: .95rem; min-width: 64px; text-align: right; }
+.gauge.low em { color: var(--coral); }
+.legend { margin-top: 16px; font-size: .92rem; color: var(--ink-soft); }
+.notes { display: grid; gap: 24px; margin-top: 40px; }
+.notes h3 { font-size: 1.25rem; font-weight: 800; color: var(--leaf-deep); }
+.notes p { margin-top: 4px; color: var(--ink-soft); }
+
+/* nhà đầu tư */
+.invest { background: var(--leaf-deep); color: #eaf5ea; padding: 96px 0; margin-bottom: 112px; }
+@media (prefers-color-scheme: dark) { .invest { background: #0a1a10; } }
+.invest h2 { color: #fff; max-width: 14ch; }
+.invest-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
+@media (max-width: 920px) { .invest-grid { grid-template-columns: 1fr; gap: 32px; } }
+.invest .lead { margin-top: 20px; color: #bcd6bf; max-width: 36ch; }
+.invest .btn { margin-top: 28px; }
+.reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.reasons li { padding: 22px 0; border-top: 1px solid rgba(255,255,255,.18); }
+.reasons li:first-child { border-top: 0; padding-top: 0; }
+.reasons b { display: block; font-size: 1.2rem; color: #fff; }
+.reasons span { color: #bcd6bf; }
+.reasons .next b { color: var(--marigold); }
+
+/* liên hệ */
+.contact-card { background: var(--marigold); color: #1c1503; border-radius: 28px; padding: 48px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+@media (max-width: 800px) { .contact-card { grid-template-columns: 1fr; padding: 32px 22px; } }
+.contact-card h2 { color: #1c1503; }
+.contact-card p { margin-top: 14px; max-width: 40ch; }
+.contact-card .cta { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+.contact-card .btn.light { color: #1c1503; box-shadow: inset 0 0 0 2px #1c1503; }
+.contact-card .btn.light:hover { background: rgba(28,21,3,.08); }
+.qr { background: #fff; color: #1f2933; border-radius: 20px; padding: 18px; text-align: center; font-size: .92rem; }
+.qr img { width: 100%; max-width: 220px; border-radius: 12px; display: block; margin: 0 auto 8px; }
+.contact { padding-bottom: 96px; }
+footer { padding: 28px 0; color: var(--ink-soft); font-size: .95rem; border-top: 1px solid var(--line); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bar, .btn { transition: none; }
+  .sheet-in, .debt.done .stamp { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="#top"><img src="assets/logo.png" alt="" />Tạp Hóa Mini</a>
+      <nav aria-label="Điều hướng">
+        <a href="#viec">Việc hôm nay</a>
+        <a href="#so-no">Sổ nợ</a>
+        <a href="#kho">Kho hàng</a>
+        <a href="#dau-tu">Nhà đầu tư</a>
+      </nav>
+      <a class="btn small" href="#lien-he">Lấy app</a>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <h1>Cả tiệm tạp hóa gọn trong một chiếc điện thoại.</h1>
+        <p class="lead">Tạp Hóa Mini giúp chủ tiệm tính tiền, theo dõi kho và ghi sổ nợ. Không cần tài khoản, dữ liệu nằm ngay trong máy.</p>
+        <div class="cta">
+          <a class="btn" href="#lien-he">Nhắn Zalo lấy app</a>
+          <a class="btn light" href="#dau-tu">Dành cho nhà đầu tư</a>
+        </div>
+        <ul class="facts">
+          <li><b>Bán hàng nhanh.</b> Chạm hàng vào giỏ, chọn tiền khách đưa, app tính tiền thối.</li>
+          <li><b>Biết việc cần làm.</b> Hàng sắp hết, hàng sắp hết hạn, khách còn nợ hiện ngay trang chủ.</li>
+          <li><b>Riêng tư.</b> Khóa bằng mã PIN, không gửi dữ liệu lên máy chủ nào.</li>
+        </ul>
+      </div>
+
+      <div class="stage">
+        <div class="phone" id="phone" aria-label="Màn hình bán hàng thử">
+          <div class="ph-top">
+            <h2>Bán hàng</h2>
+            <div class="ph-search">Tìm sản phẩm...</div>
+          </div>
+          <div class="ph-chips" aria-hidden="true"><span>Tất cả</span><span>Đồ uống</span><span>Mì ăn liền</span><span>Gia vị</span></div>
+          <div class="grid" id="grid"></div>
+          <button class="bar" id="bar" type="button"><span id="barQty"></span><span id="barTotal"></span></button>
+          <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Thanh toán">
+            <div class="sheet-in" id="sheetIn"></div>
+          </div>
+        </div>
+        <p class="hint">Thử ngay: chạm vài món vào giỏ, rồi bấm thanh xanh phía dưới.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="block" id="viec">
+    <div class="wrap split">
+      <div class="sec-head">
+        <h2>Mở app là biết hôm nay cần làm gì.</h2>
+        <p>Trang chủ gom ba việc chủ tiệm hay quên vào một khối: hàng sắp hết, hàng sắp hết hạn và khách còn nợ. Chạm vào dòng nào, app mở đúng chỗ đó.</p>
+      </div>
+      <div class="todo" aria-label="Ví dụ khối Cần xử lý">
+        <h3>Cần xử lý</h3>
+        <div class="todo-row"><i style="background:var(--coral)"></i><div><b>4 mặt hàng sắp hết</b><span>Cần nhập thêm</span></div></div>
+        <div class="todo-row"><i style="background:var(--marigold)"></i><div><b>Hàng sắp hết hạn</b><span>Còn dưới 30 ngày hoặc đã quá hạn</span></div></div>
+        <div class="todo-row"><i style="background:var(--leaf)"></i><div><b>2 khách đang nợ</b><span>Tổng 1.000.000đ</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="so-no">
+    <div class="wrap split">
+      <div class="ledger" id="ledger" aria-label="Ví dụ sổ nợ"></div>
+      <div class="sec-head">
+        <h2>Khách quen nợ bao nhiêu, mở sổ là thấy.</h2>
+        <p>Mỗi khách một dòng: tổng đã mua, đã trả, còn nợ. Khách trả thêm thì ghi một chạm, lịch sử trả được giữ lại. Bấm thử nút trong sổ bên cạnh.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="kho">
+    <div class="wrap split">
+      <div class="sec-head">
+        <h2>Biết món nào sắp hết trước khi khách hỏi.</h2>
+        <p>Mỗi sản phẩm có mức tồn tối thiểu riêng. Chạm mức đó, thanh chuyển đỏ và app báo.</p>
+        <div class="notes">
+          <div><h3>Quét mã vạch</h3><p>Dùng camera điện thoại để quét khi bán hoặc nhập hàng.</p></div>
+          <div><h3>Nhắc hạn sử dụng</h3><p>Đặt hạn cho từng sản phẩm. Còn dưới 30 ngày là app nhắc.</p></div>
+          <div><h3>Nhập lẻ hoặc theo thùng</h3><p>Giá nhập và giá bán lưu riêng để biết lời bao nhiêu.</p></div>
+        </div>
+      </div>
+      <div>
+        <ul class="gauges" id="gauges"></ul>
+        <p class="legend">Vạch đen là mức tối thiểu. Thanh đỏ nghĩa là cần nhập thêm. Số liệu ở đây là dữ liệu mẫu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="invest" id="dau-tu">
+    <div class="wrap invest-grid">
+      <div>
+        <h2>Một sản phẩm nhỏ, gọn, nhắm đúng một nhóm khách.</h2>
+        <p class="lead">Tiệm tạp hóa nhỏ cần công cụ ghi sổ đơn giản hơn các phần mềm bán lẻ lớn. Tạp Hóa Mini được làm cho đúng nhóm đó.</p>
+        <a class="btn gold" href="https://zalo.me/0868670553" target="_blank" rel="noopener noreferrer">Trao đổi với tác giả</a>
+      </div>
+      <ul class="reasons">
+        <li><b>Chi phí vận hành thấp</b><span>Dữ liệu lưu trên điện thoại, chưa cần máy chủ hay hệ thống tài khoản để chạy.</span></li>
+        <li><b>Làm riêng cho thị trường Việt Nam</b><span>Giao diện tiếng Việt, tiền đồng, sổ nợ kiểu tạp hóa, mã VietQR và quét mã vạch.</span></li>
+        <li><b>Nền tảng sẵn sàng mở rộng</b><span>Một mã nguồn web, đóng gói thành app Android bằng Capacitor, có thể ra thêm nền tảng khác.</span></li>
+        <li class="next"><b>Chỗ còn trống để phát triển</b><span>Hiện chưa có đồng bộ giữa nhiều máy, tài khoản đám mây hay báo cáo gửi về chủ tiệm. Đây là các hướng mở rộng tự nhiên.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap contact" id="lien-he">
+    <div class="contact-card">
+      <div>
+        <h2>Muốn dùng thử cho tiệm của bạn?</h2>
+        <p>Nhắn Zalo cho tác giả Nguyễn Hạo Thiên để nhận bản cài Android và được hướng dẫn nhập hàng lần đầu.</p>
+        <div class="cta">
+          <a class="btn" href="https://zalo.me/0868670553" target="_blank" rel="noopener noreferrer">Nhắn Zalo 0868 670 553</a>
+          <a class="btn light" href="tel:0868670553">Gọi điện</a>
+        </div>
+      </div>
+      <div class="qr">
+        <img src="assets/vietqr.png" alt="Mã VietQR ủng hộ tác giả" />
+        Thấy app hữu ích? Mời tác giả một ly cà phê, quét bằng app ngân hàng bất kỳ.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Tạp Hóa Mini do Nguyễn Hạo Thiên phát triển.</div>
+</footer>
+
+<script>
+(function () {
+  var fmt = function (n) { return n.toLocaleString("vi-VN") + "đ"; };
+
+  /* ----- Demo bán hàng (giá và tồn kho lấy từ dữ liệu mẫu của app) ----- */
+  var products = [
+    { id: "p1", name: "Mì Hảo Hảo", price: 4500, stock: 3, min: 10, unit: "gói" },
+    { id: "p2", name: "Coca Cola", price: 10000, stock: 2, min: 10, unit: "chai" },
+    { id: "p5", name: "Nước mắm", price: 32000, stock: 18, min: 5, unit: "chai" },
+    { id: "p7", name: "Sữa tươi", price: 32000, stock: 14, min: 8, unit: "hộp" },
+    { id: "p8", name: "Bánh mì", price: 8000, stock: 20, min: 10, unit: "ổ" },
+    { id: "p10", name: "Nước suối", price: 5000, stock: 40, min: 15, unit: "chai" }
+  ];
+  var cart = {}, paid = null, stage = "shop", change = 0;
+  var grid = document.getElementById("grid"), bar = document.getElementById("bar");
+  var sheet = document.getElementById("sheet"), sheetIn = document.getElementById("sheetIn");
+  var BANK = [10000, 20000, 50000, 100000, 200000, 500000];
+
+  function totals() {
+    var q = 0, t = 0;
+    products.forEach(function (p) { var n = cart[p.id] || 0; q += n; t += n * p.price; });
+    return { q: q, t: t };
+  }
+  function renderGrid() {
+    grid.innerHTML = products.map(function (p) {
+      var n = cart[p.id] || 0, max = n >= p.stock, low = p.stock <= p.min;
+      return '<button type="button" class="tile' + (n ? ' sel' : '') + (max ? ' max' : '') + '" data-id="' + p.id + '" aria-label="Thêm ' + p.name + ' vào giỏ">' +
+        (n ? '<span class="qty">' + n + '</span>' : '') +
+        '<span class="av">' + p.name.charAt(0) + '</span><b>' + p.name + '</b><span class="pr">' + fmt(p.price) + '</span>' +
+        '<span class="st' + (low ? ' low' : '') + '">' + (max ? 'Đã lấy hết' : 'còn ' + p.stock + ' ' + p.unit) + '</span></button>';
+    }).join("");
+    var t = totals();
+    bar.classList.toggle("show", t.q > 0);
+    document.getElementById("barQty").textContent = t.q + " sản phẩm";
+    document.getElementById("barTotal").textContent = fmt(t.t) + "  Xem giỏ";
+  }
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest(".tile"); if (!b) return;
+    var p = products.filter(function (x) { return x.id === b.getAttribute("data-id"); })[0];
+    if ((cart[p.id] || 0) >= p.stock) return;
+    cart[p.id] = (cart[p.id] || 0) + 1; renderGrid();
+  });
+  function renderSheet() {
+    var t = totals();
+    if (stage === "done") {
+      sheetIn.innerHTML = '<div class="done"><div class="ok">✓</div><h3>Đã thanh toán</h3><p>' + (change > 0 ? 'Trả lại khách ' + fmt(change) + '.' : 'Khách trả đủ.') + '</p><button class="pay" id="again" type="button">Bán đơn mới</button></div>';
+      document.getElementById("again").onclick = function () { cart = {}; paid = null; stage = "shop"; sheet.classList.remove("open"); renderGrid(); };
+      return;
+    }
+    var sug = BANK.filter(function (n) { return n > t.t; }).slice(0, 3);
+    var opts = [{ l: "Vừa đủ", v: null }].concat(sug.map(function (n) { return { l: fmt(n), v: n }; }));
+    var given = paid === null ? t.t : paid;
+    var ret = Math.max(0, given - t.t);
+    sheetIn.innerHTML = '<h3>Giỏ hàng</h3><div class="tot"><span>Tổng cộng</span><span>' + fmt(t.t) + '</span></div>' +
+      '<div class="lbl">Tiền khách đưa</div><div class="chips">' +
+      opts.map(function (o) { return '<button type="button" class="chip' + (paid === o.v ? ' on' : '') + '" data-v="' + (o.v === null ? '' : o.v) + '">' + o.l + '</button>'; }).join("") +
+      '</div><div class="change"><span>Tiền trả khách</span><b>' + fmt(ret) + '</b></div>' +
+      '<button class="pay" id="payBtn" type="button">Thanh toán ' + fmt(t.t) + '</button>' +
+      '<button class="chip" id="close" type="button" style="width:100%;margin-top:8px;border-radius:12px">Quay lại chọn hàng</button>';
+    document.getElementById("payBtn").onclick = function () { change = ret; stage = "done"; renderSheet(); };
+    document.getElementById("close").onclick = function () { sheet.classList.remove("open"); };
+  }
+  sheetIn.addEventListener("click", function (e) {
+    var c = e.target.closest(".chip[data-v]"); if (!c) return;
+    paid = c.getAttribute("data-v") === "" ? null : +c.getAttribute("data-v"); renderSheet();
+  });
+  bar.addEventListener("click", function () { stage = "pay"; paid = null; renderSheet(); sheet.classList.add("open"); });
+  sheet.addEventListener("click", function (e) { if (e.target === sheet && stage !== "done") sheet.classList.remove("open"); });
+  renderGrid();
+
+  /* ----- Sổ nợ ----- */
+  var debts = [
+    { name: "Nguyễn Văn A", total: 500000, paid: 300000, step: 100000 },
+    { name: "Trần Thị B", total: 250000, paid: 250000, step: 0 },
+    { name: "Lê Văn C", total: 800000, paid: 0, step: 200000 }
+  ];
+  var ledger = document.getElementById("ledger");
+  function renderLedger() {
+    ledger.innerHTML = debts.map(function (d, i) {
+      var left = d.total - d.paid, done = left <= 0;
+      return '<div class="debt' + (done ? ' done' : '') + '"><h3>' + d.name + '</h3>' +
+        '<div class="owed' + (d.paid === 0 ? ' late' : '') + '">' + fmt(Math.max(left, 0)) + '</div>' +
+        '<p>Đã mua ' + fmt(d.total) + ', đã trả ' + fmt(d.paid) + '</p>' +
+        (done ? '' : '<button type="button" class="paybtn" data-i="' + i + '">Ghi trả ' + fmt(Math.min(d.step, left)) + '</button>') +
+        '<div class="stamp">Đã trả hết</div></div>';
+    }).join("");
+  }
+  ledger.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-i]"); if (!b) return;
+    var d = debts[+b.getAttribute("data-i")]; d.paid = Math.min(d.total, d.paid + d.step); renderLedger();
+  });
+  renderLedger();
+
+  /* ----- Tồn kho ----- */
+  var stock = [
+    { n: "Dầu ăn", s: 1, t: 5, u: "chai" }, { n: "Coca Cola", s: 2, t: 10, u: "chai" },
+    { n: "Mì Hảo Hảo", s: 3, t: 10, u: "gói" }, { n: "Trứng gà", s: 5, t: 15, u: "quả" },
+    { n: "Sữa tươi", s: 14, t: 8, u: "hộp" }, { n: "Nước suối", s: 40, t: 15, u: "chai" }
+  ];
+  document.getElementById("gauges").innerHTML = stock.map(function (p) {
+    var max = Math.max(p.s, p.t * 2.2), low = p.s <= p.t;
+    return '<li class="gauge' + (low ? ' low' : '') + '"><strong>' + p.n + '</strong>' +
+      '<div class="bar-t' + (low ? ' low' : '') + '" role="img" aria-label="' + p.n + ' còn ' + p.s + ' ' + p.u + ', mức tối thiểu ' + p.t + '"><i style="width:' + (p.s / max * 100).toFixed(1) + '%"></i><u style="left:' + (p.t / max * 100).toFixed(1) + '%"></u></div>' +
+      '<em>' + p.s + ' ' + p.u + '</em></li>';
+  }).join("");
+})();
+</script>
+</body>
+</html>
