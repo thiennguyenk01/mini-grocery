@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="README.vi.md">Tiếng Việt</a> · <b>English</b>
+  <b>English</b> · <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
 <p align="center">
