@@ -1,12 +1,16 @@
 <p align="center">
-  <img src="src/assets/logo.png" alt="Logo Tạp Hóa Mini" width="120" />
+  <img src="src/assets/logo.png" alt="Tap Hoa Mini logo" width="120" />
 </p>
 
-<h1 align="center">Tạp Hóa Mini</h1>
+<h1 align="center">Tap Hoa Mini</h1>
 
 <p align="center">
-  Ứng dụng di động quản lý tạp hóa nhỏ: bán hàng, nhập hàng, tồn kho, công nợ và sao lưu dữ liệu.<br />
-  Dành cho Android.
+  A mobile app for managing a small grocery store: sales, purchases, inventory, customer debts, and data backup.<br />
+  Built for Android.
+</p>
+
+<p align="center">
+  <a href="README.vi.md">Tiếng Việt</a> · <b>English</b>
 </p>
 
 <p align="center">
@@ -17,71 +21,71 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/01-trang-chu.png" alt="Trang chủ trên điện thoại" width="260" />
+  <img src="docs/screenshots/01-trang-chu.png" alt="Home screen on a phone" width="260" />
 </p>
 
-> 💡 **Offline-first:** toàn bộ dữ liệu lưu trên thiết bị. Không cần server, không cần tài khoản, không cần internet.
+> 💡 **Offline-first:** all data stays on the device. No server, no account, no internet connection required.
 
 ---
 
-## ✨ Điểm nổi bật
+## ✨ Highlights
 
-- 🧾 **Bán hàng nhanh:** chọn sản phẩm theo danh mục hoặc quét mã vạch, tính tiền tự động.
-- 💰 **Xử lý tiền thừa linh hoạt:** trả lại, cho (tặng) hoặc ghi nợ khi khách đưa dư.
-- 📦 **Tồn kho tự động:** nhập hàng tự tăng tồn, bán hàng tự giảm, cảnh báo khi sắp hết.
-- 👥 **Quản lý công nợ:** theo dõi khách đang nợ và số tiền đã trả.
-- 🔐 **Bảo mật bằng PIN:** mã PIN được băm PBKDF2-SHA256, không lưu dạng rõ.
-- 💾 **Sao lưu và khôi phục:** xuất toàn bộ dữ liệu ra file JSON, có kiểm tra hợp lệ trước khi ghi đè.
+- 🧾 **Fast checkout:** pick products by category or scan a barcode, and the total is calculated automatically.
+- 💰 **Flexible change handling:** when a customer overpays, return the change, give it as a gift, or record it as credit.
+- 📦 **Automatic stock:** purchases increase stock, sales decrease it, and low-stock items are flagged.
+- 👥 **Debt tracking:** see which customers owe money and how much they have paid.
+- 🔐 **PIN lock:** the PIN is hashed with PBKDF2-SHA256 and never stored in plain text.
+- 💾 **Backup and restore:** export all data to a JSON file, with validation before anything is overwritten.
 
 ---
 
-## 📸 Xem nhanh giao diện
+## 📸 Screenshots
 
 <table>
   <tr>
     <td align="center" width="25%">
-      <img src="docs/screenshots/02-ban-hang.png" alt="Bán hàng" width="200" /><br />
-      <b>Bán hàng</b><br />chọn sản phẩm nhanh theo danh mục
+      <img src="docs/screenshots/02-ban-hang.png" alt="Sales" width="200" /><br />
+      <b>Sales</b><br />pick products quickly by category
     </td>
     <td align="center" width="25%">
-      <img src="docs/screenshots/03-san-pham.png" alt="Sản phẩm" width="200" /><br />
-      <b>Sản phẩm</b><br />giá nhập, giá bán, tồn kho
+      <img src="docs/screenshots/03-san-pham.png" alt="Products" width="200" /><br />
+      <b>Products</b><br />purchase price, selling price, stock
     </td>
     <td align="center" width="25%">
-      <img src="docs/screenshots/04-nhap-hang.png" alt="Nhập hàng" width="200" /><br />
-      <b>Nhập hàng</b><br />lịch sử các phiếu nhập
+      <img src="docs/screenshots/04-nhap-hang.png" alt="Purchases" width="200" /><br />
+      <b>Purchases</b><br />history of purchase orders
     </td>
     <td align="center" width="25%">
-      <img src="docs/screenshots/05-cong-no.png" alt="Công nợ" width="200" /><br />
-      <b>Công nợ</b><br />khách đang nợ và số đã trả
+      <img src="docs/screenshots/05-cong-no.png" alt="Debts" width="200" /><br />
+      <b>Debts</b><br />customers who owe money and amounts paid
     </td>
   </tr>
 </table>
 
 ---
 
-## 📋 Tính năng đầy đủ
+## 📋 Features
 
-| Nhóm | Chức năng |
+| Area | What it does |
 | --- | --- |
-| 🏠 Tổng quan | Trang chủ với thống kê và xu hướng doanh thu so với hôm qua |
-| 🧾 Bán hàng | Tạo đơn bán, tính tiền khách đưa, xem lịch sử giao dịch |
-| 📦 Sản phẩm | Quản lý sản phẩm, ảnh, mã hàng, quét mã vạch, cảnh báo hạn sử dụng |
-| 🏷️ Danh mục | Phân loại sản phẩm |
-| 📥 Nhập hàng | Phiếu nhập theo đơn lẻ hoặc theo thùng, tự cập nhật tồn kho |
-| 👥 Công nợ | Theo dõi khách nợ và số tiền đã trả |
-| 🤝 Nhà cung cấp | Danh bạ nhà cung cấp |
-| 💸 Chi phí | Ghi nhận chi phí vận hành |
-| 🧮 Máy tính | Máy tính nhanh tích hợp |
-| 🔔 Thông báo | Thông báo cục bộ: tồn kho thấp, sắp hết hạn, biến động doanh thu |
-| 🔐 Bảo mật | Khoá ứng dụng bằng mã PIN |
-| 💾 Sao lưu | Xuất / khôi phục dữ liệu bằng file JSON |
+| 🏠 Overview | Home screen with statistics and revenue trend compared to yesterday |
+| 🧾 Sales | Create sales, calculate change, view transaction history |
+| 📦 Products | Manage products, images, codes, barcode scanning, expiry warnings |
+| 🏷️ Categories | Group products into categories |
+| 📥 Purchases | Purchase orders by single unit or by case, stock updated automatically |
+| 👥 Debts | Track customer debts and payments |
+| 🤝 Suppliers | Supplier directory |
+| 💸 Expenses | Record operating expenses |
+| 🧮 Calculator | Built-in quick calculator |
+| 🔔 Notifications | Local alerts for low stock, upcoming expiry, and revenue changes |
+| 🔐 Security | App lock with a PIN |
+| 💾 Backup | Export and restore data as a JSON file |
 
 ---
 
-## 🚀 Bắt đầu nhanh
+## 🚀 Quick start
 
-Nếu đã có Node.js 20 trở lên và Android Studio:
+If you already have Node.js 20+ and Android Studio:
 
 ```bash
 git clone https://github.com/thiennguyenk01/mini-grocery.git
@@ -90,139 +94,139 @@ npm install
 npm run android
 ```
 
-Lệnh cuối build app, đồng bộ sang project Android rồi mở Android Studio. Nhấn **Run ▶** để cài lên điện thoại hoặc emulator. Dữ liệu mẫu sẽ có sẵn để bạn dùng thử.
+The last command builds the app, syncs it to the Android project, and opens Android Studio. Press **Run ▶** to install it on a phone or emulator. Sample data is included so you can try the app right away.
 
 ---
 
-## 🛠️ Hướng dẫn cài đặt chi tiết
+## 🛠️ Detailed setup
 
-### Yêu cầu
+### Requirements
 
-| Phần mềm | Phiên bản | Ghi chú |
+| Software | Version | Notes |
 | --- | --- | --- |
-| Node.js | 20 trở lên (đã kiểm tra với 24) | Kèm npm, dùng để build web và đồng bộ |
-| Git | Bất kỳ | Để clone repo |
-| Android Studio | Mới nhất | Bắt buộc, dùng để cài app lên thiết bị |
-| Điện thoại Android | Android 7.0 trở lên | Hoặc dùng emulator trong Android Studio |
+| Node.js | 20 or newer (tested with 24) | Includes npm; used to build the web layer and sync |
+| Git | Any | To clone the repository |
+| Android Studio | Latest | Required to install the app on a device |
+| Android device | Android 7.0 or newer | Or use an emulator in Android Studio |
 
-> ℹ️ Đây là ứng dụng di động, không có bản chạy trên trình duyệt. Mọi thao tác chạy app đều đi qua Android Studio.
+> ℹ️ This is a mobile app with no browser version. Running the app always goes through Android Studio.
 
-### Bước 1: Clone repository
+### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/thiennguyenk01/mini-grocery.git
 cd mini-grocery
 ```
 
-### Bước 2: Cài đặt thư viện
+### Step 2: Install dependencies
 
 ```bash
 npm install
 ```
 
-Lệnh này cài toàn bộ dependencies trong `package.json` vào `node_modules/`.
+This installs everything listed in `package.json` into `node_modules/`.
 
-### Bước 3: Cài Android Studio
+### Step 3: Install Android Studio
 
-Tải và cài [Android Studio](https://developer.android.com/studio). Lần mở đầu, để trình cài đặt tải Android SDK mặc định.
+Download and install [Android Studio](https://developer.android.com/studio). On first launch, let the installer download the default Android SDK.
 
-### Bước 4: Build và mở project Android
+### Step 4: Build and open the Android project
 
 ```bash
 npm run android
 ```
 
-Lệnh này build code web (`npm run build`), đồng bộ sang thư mục `android/` bằng Capacitor, rồi mở project trong Android Studio. Lần đầu có thể mất vài phút để Gradle tải thư viện.
+This runs the web build (`npm run build`), syncs the output into the `android/` folder with Capacitor, and opens the project in Android Studio. The first Gradle sync can take a few minutes.
 
-### Bước 5: Chạy app trên điện thoại hoặc emulator
+### Step 5: Run the app on a phone or emulator
 
-1. **Điện thoại thật:** bật *Tuỳ chọn nhà phát triển* và *Gỡ lỗi USB*, cắm cáp vào máy tính.
-2. **Emulator:** vào *Device Manager* trong Android Studio và tạo một thiết bị ảo nếu chưa có.
-3. Chọn thiết bị ở thanh công cụ, rồi nhấn **Run ▶**.
+1. **Physical phone:** enable *Developer options* and *USB debugging*, then connect the phone with a cable.
+2. **Emulator:** open *Device Manager* in Android Studio and create a virtual device if you don't have one.
+3. Select the device in the toolbar, then press **Run ▶**.
 
-### Bước 6: Cập nhật sau khi sửa code
+### Step 6: Update after changing code
 
-Mỗi khi thay đổi mã nguồn trong `src/`, chạy lại:
+After editing anything in `src/`, run:
 
 ```bash
 npm run android:sync
 ```
 
-Sau đó nhấn **Run ▶** trong Android Studio để cài bản mới.
+Then press **Run ▶** in Android Studio to install the new build.
 
 ---
 
-## 🎬 Thử nghiệm luồng chính
+## 🎬 Try the main workflow
 
-Sau khi cài app lên điện thoại hoặc emulator, bạn có thể làm theo thứ tự sau:
+After installing the app on a phone or emulator, follow these steps:
 
-1. **Thêm danh mục.** Vào **Danh mục**, tạo ít nhất một danh mục (ví dụ: *Đồ uống*).
-2. **Thêm sản phẩm.** Vào **Sản phẩm**, nhấn **+** rồi nhập tên, đơn vị (gói, chai, kg...), giá nhập, giá bán, danh mục, ngưỡng cảnh báo và ảnh (tuỳ chọn). Trên Android có thể quét mã vạch.
-3. **Nhập hàng.** Vào **Nhập hàng**, tạo phiếu nhập cho sản phẩm vừa thêm. Chọn nhập lẻ hoặc theo thùng. Tồn kho tự tăng sau khi lưu.
-4. **Bán hàng.** Vào **Bán hàng**, thêm sản phẩm vào giỏ, nhập số tiền khách đưa:
-   - Khách đưa đủ: đơn hoàn tất.
-   - Khách đưa thiếu: phần còn lại được ghi vào **Công nợ**.
-   - Khách đưa dư: chọn **trả lại** tiền thừa, **cho** (tặng) phần dư, hoặc **ghi nợ** để cửa hàng nợ lại khách.
-5. **Xem công nợ và lịch sử.** Vào **Công nợ** để xem khách nợ, hoặc nhấn **Lịch sử giao dịch** trong trang Bán hàng.
-6. **Xem thống kê.** Quay lại **Trang chủ** để xem doanh thu và xu hướng so với hôm qua.
-7. **Đặt mã PIN.** Vào **Cài đặt → Bảo mật** để đặt PIN. Lần mở app sau sẽ yêu cầu nhập PIN.
-8. **Sao lưu.** Vào **Cài đặt** để xuất file JSON. Khi cần, dùng chức năng khôi phục để nạp lại dữ liệu.
+1. **Add a category.** Go to **Categories** and create at least one (for example, *Drinks*).
+2. **Add a product.** Go to **Products**, tap **+**, and enter the name, unit (pack, bottle, kg...), purchase price, selling price, category, low-stock threshold, and an optional image. On Android you can also scan a barcode.
+3. **Record a purchase.** Go to **Purchases** and create an order for the product you just added. Choose single-unit or case entry. Stock increases after you save.
+4. **Make a sale.** Go to **Sales**, add products to the cart, and enter the amount the customer paid:
+   - Exact amount: the sale is complete.
+   - Short: the remaining amount is recorded in **Debts**.
+   - Overpaid: choose to **return** the change, **give** it as a gift, or record it as **credit** for the store to owe the customer.
+5. **Check debts and history.** Go to **Debts** to see who owes money, or tap **Transaction history** on the Sales page.
+6. **View statistics.** Go back to **Home** to see revenue and the trend compared to yesterday.
+7. **Set a PIN.** Go to **Settings → Security** to set a PIN. The app will ask for it the next time it opens.
+8. **Back up.** Go to **Settings** to export a JSON file. To restore, use the restore option and select that file.
 
 ---
 
-## 🧰 Công nghệ
+## 🧰 Tech stack
 
 - **Frontend:** React 19, TypeScript, Vite 8, Ant Design 6, React Router 7 (HashRouter), dayjs
-- **Mobile:** Capacitor 8 (Android), `@capacitor-mlkit/barcode-scanning` cho quét mã vạch
-- **Công cụ:** oxlint
+- **Mobile:** Capacitor 8 (Android), `@capacitor-mlkit/barcode-scanning` for barcode scanning
+- **Tooling:** oxlint
 
 ---
 
-## 🗂️ Cấu trúc thư mục
+## 🗂️ Project structure
 
 ```
 tap-hoa-mini/
-├── android/              # Project Android (Capacitor)
-├── docs/screenshots/     # Ảnh chụp màn hình dùng trong README
-├── public/               # Tài nguyên tĩnh
+├── android/              # Android project (Capacitor)
+├── docs/screenshots/     # Screenshots used in this README
+├── public/               # Static assets
 ├── src/
-│   ├── components/       # Thành phần UI dùng lại (modal, nhập tiền, PIN...)
-│   ├── hooks/            # Custom hooks (quét mã vạch, nút back Android...)
-│   ├── layouts/          # Layout chính, thanh điều hướng, danh sách menu
-│   ├── mock/             # Dữ liệu mẫu ban đầu
-│   ├── pages/            # Các trang chức năng
-│   ├── services/         # Sao lưu, PIN, thông báo, migration dữ liệu
-│   ├── store/            # Context quản lý state toàn app
-│   ├── types/            # Kiểu dữ liệu TypeScript
-│   └── utils/            # Hàm tiện ích (định dạng, hạn sử dụng, tính tiền...)
-├── website/              # Trang giới thiệu tĩnh
-├── capacitor.config.ts   # Cấu hình Capacitor (appId, appName)
-└── vite.config.ts        # Cấu hình Vite
+│   ├── components/       # Reusable UI (modals, money input, PIN...)
+│   ├── hooks/            # Custom hooks (barcode scanning, Android back button...)
+│   ├── layouts/          # Main layout, navigation bar, menu definitions
+│   ├── mock/             # Initial sample data
+│   ├── pages/            # Feature pages
+│   ├── services/         # Backup, PIN, notifications, data migrations
+│   ├── store/            # App-wide state context
+│   ├── types/            # TypeScript types
+│   └── utils/            # Helpers (formatting, expiry, payment calculations...)
+├── website/              # Static introduction page
+├── capacitor.config.ts   # Capacitor config (appId, appName)
+└── vite.config.ts        # Vite config
 ```
 
 ---
 
-## 📜 Các lệnh npm
+## 📜 npm scripts
 
-| Lệnh | Tác dụng |
+| Command | What it does |
 | --- | --- |
-| `npm run build` | Kiểm tra TypeScript và đóng gói web (bước đầu của build Android) |
-| `npm run lint` | Kiểm tra code bằng oxlint |
-| `npm run android` | Build web, sync và mở Android Studio |
-| `npm run android:sync` | Build web và sync sang project Android sau khi sửa code |
+| `npm run build` | Type-check and build the web layer (first step of the Android build) |
+| `npm run lint` | Lint the code with oxlint |
+| `npm run android` | Build, sync, and open Android Studio |
+| `npm run android:sync` | Build and sync to the Android project after code changes |
 
 ---
 
-## ❓ Xử lý sự cố
+## ❓ Troubleshooting
 
-- **`npm install` lỗi:** xoá `node_modules/` và `package-lock.json` rồi chạy lại, hoặc kiểm tra phiên bản Node.js.
-- **Gradle tải thư viện lâu hoặc lỗi lần đầu:** đợi quá trình đồng bộ xong trong Android Studio, rồi thử *Build → Rebuild Project*.
-- **Đã sửa code nhưng app không đổi:** chạy lại `npm run android:sync` rồi nhấn **Run ▶**.
-- **Dữ liệu biến mất:** dữ liệu nằm trong bộ nhớ của app trên máy. Xoá dữ liệu app hoặc gỡ cài đặt sẽ xoá dữ liệu. Hãy sao lưu thường xuyên.
-- **Quét mã vạch không hoạt động:** tính năng này cần chạy trên thiết bị Android thật và cấp quyền camera cho app. Emulator thường không quét được.
+- **`npm install` fails:** delete `node_modules/` and `package-lock.json`, then run it again, or check your Node.js version.
+- **Gradle is slow or fails on the first run:** wait for the sync to finish in Android Studio, then try *Build → Rebuild Project*.
+- **Code changes don't show up in the app:** run `npm run android:sync`, then press **Run ▶**.
+- **Data disappears:** data lives in the app's storage on the device. Clearing app data or uninstalling the app deletes it. Back up regularly.
+- **Barcode scanning doesn't work:** scanning needs a real Android device and camera permission for the app. Emulators usually can't scan.
 
 ---
 
-## 📄 Giấy phép
+## 📄 License
 
-Dự án chưa khai báo giấy phép. Liên hệ chủ repository trước khi sử dụng lại mã nguồn.
+No license has been specified yet. Contact the repository owner before reusing the code.
